@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Growth: A Time-Study Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.0.1/dist/chartjs-chart-treemap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .brand-dark-blue { color: #003F5C; }
+        .brand-mid-blue { color: #366E8A; }
+        .brand-light-blue { color: #75A2B8; }
+        .brand-pale-blue { color: #B2DDF0; }
+        .bg-brand-dark-blue { background-color: #003F5C; }
+        .bg-brand-mid-blue { background-color: #366E8A; }
+        .bg-brand-light-blue { background-color: #75A2B8; }
+        .bg-brand-pale-blue { background-color: #B2DDF0; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        .treemap-container {
+             position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+            max-height: 60vh;
+        }
+        .demo-link {
+            color: #003F5C;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .demo-link:hover {
+            text-decoration: underline;
+            color: #366E8A;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-700">
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+
+        <header class="text-center mb-16 md:mb-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold brand-dark-blue leading-tight">Analyzing Your Time for AI-Powered Growth</h1>
+            <p class="mt-4 text-lg md:text-xl font-medium brand-mid-blue max-w-3xl mx-auto">A data-driven look at your workflow and the opportunities to leverage modern tools for focus and efficiency.</p>
+        </header>
+
+        <section id="daily-overview" class="mb-16 md:mb-24">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold brand-dark-blue">1. Your Week at a Glance</h2>
+                <p class="mt-4 text-base md:text-lg brand-mid-blue">Your three-day time log shows a consistent pattern of client-facing work balanced with administrative and strategic tasks. Here's the daily breakdown.</p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                    <h3 class="text-xl font-bold text-center brand-dark-blue mb-4">Monday</h3>
+                    <div class="chart-container">
+                        <canvas id="mondayChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                    <h3 class="text-xl font-bold text-center brand-dark-blue mb-4">Tuesday</h3>
+                    <div class="chart-container">
+                        <canvas id="tuesdayChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                     <h3 class="text-xl font-bold text-center brand-dark-blue mb-4">Wednesday</h3>
+                    <div class="chart-container">
+                        <canvas id="wednesdayChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="summary-treemap" class="mb-16 md:mb-24">
+             <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold brand-dark-blue">2. The Big Picture: Overall Time Allocation</h2>
+                <p class="mt-4 text-base md:text-lg brand-mid-blue">When aggregated, your time allocation becomes clear. The size of each block represents the percentage of your time dedicated to that category over the three days.</p>
+            </div>
+            <div class="mt-12 bg-white rounded-xl shadow-lg p-4 sm:p-6">
+                <div class="treemap-container">
+                    <canvas id="treemapChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="mb-16 md:mb-24">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold brand-dark-blue">3. Unlocking Efficiency: A Modern Toolkit</h2>
+                <p class="mt-4 text-base md:text-lg brand-mid-blue">Based on your time log, we can modernize your workflow by targeting the most time-consuming areas with specific, powerful tools—some AI-driven, some foundational.</p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-xl brand-dark-blue">Automate Meetings & Follow-up</h3>
+                        <p class="text-sm font-medium brand-light-blue uppercase mb-2">~45% OF TIME</p>
+                        <p class="brand-mid-blue mt-2">Replace manual note-taking and follow-up drafting with AI that transcribes, summarizes, and extracts action items from your meetings.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <h4 class="font-semibold brand-dark-blue">Tools for the Job:</h4>
+                        <ul class="list-disc list-inside mt-2 space-y-2 text-sm brand-mid-blue">
+                            <li><span class="font-bold">Fireflies.ai / Otter.ai:</span> For automatic transcription.</li>
+                            <li><span class="font-bold">Microsoft Copilot:</span> For real-time summaries. <a href="https://www.youtube.com/watch?v=c6rftgl9JPk" target="_blank" class="demo-link">(Watch Demo)</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="font-bold text-xl brand-dark-blue">Streamline Client Paperwork</h3>
+                        <p class="text-sm font-medium brand-light-blue uppercase mb-2">~16% OF TIME</p>
+                        <p class="brand-mid-blue mt-2">Generate first drafts of routine client emails and reminders instantly. Digitize the entire paperwork lifecycle from drafting to signing.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <h4 class="font-semibold brand-dark-blue">Tools for the Job:</h4>
+                        <ul class="list-disc list-inside mt-2 space-y-2 text-sm brand-mid-blue">
+                            <li><span class="font-bold">ChatGPT / Gemini:</span> For drafting communications. <a href="https://www.youtube.com/watch?v=N-pT-qisTcI" target="_blank" class="demo-link">(Watch Demo)</a></li>
+                             <li><span class="font-bold">Docusign / PandaDoc:</span> To automate sending and signing.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col">
+                     <div class="flex-grow">
+                        <h3 class="font-bold text-xl brand-dark-blue">Centralize All Operations</h3>
+                        <p class="text-sm font-medium brand-light-blue uppercase mb-2">FOUNDATIONAL</p>
+                        <p class="brand-mid-blue mt-2">Move away from spreadsheets. A central planning tool gives you a single source of truth. While Planner is just one example, these videos show what modern task management looks like.</p>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <h4 class="font-semibold brand-dark-blue">Tools for the Job:</h4>
+                        <ul class="list-disc list-inside mt-2 space-y-2 text-sm brand-mid-blue">
+                            <li><span class="font-bold">Microsoft Planner / Asana / Notion:</span>
+                                <ul class="list-['↳'] ml-4 mt-1 space-y-1">
+                                    <li><a href="https://youtu.be/r3dpzqttDuA?t=162" target="_blank" class="demo-link">Managing Your Day</a></li>
+                                    <li><a href="https://youtu.be/r3dpzqttDuA?t=434" target="_blank" class="demo-link">Assigning Delegated Tasks</a></li>
+                                    <li><a href="https://youtu.be/r3dpzqttDuA?t=581" target="_blank" class="demo-link">Using a Task Board</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="bottom-line" class="mb-16 md:mb-24 bg-brand-dark-blue text-white rounded-xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold">The Bottom Line: Reclaiming Your Focus</h2>
+            <p class="mt-4 text-lg md:text-xl text-brand-pale-blue max-w-4xl mx-auto">By automating just 30-60 minutes of administrative work per day, you could reclaim **3-5 hours per week**. This is time that can be directly reinvested into client acquisition, strategic planning, and personal development—the core activities that drive entrepreneurial growth.</p>
+        </section>
+        
+        <section id="prompt-library">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold brand-dark-blue">Starter Prompt Library</h2>
+                <p class="mt-4 text-base md:text-lg brand-mid-blue">Use these prompts with any modern AI assistant as a starting point. The key is to be clear and provide context.</p>
+            </div>
+            <div class="mt-12 bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-brand-pale-blue/50">
+                            <tr>
+                                <th class="p-4 font-bold brand-dark-blue text-sm uppercase">Scenario</th>
+                                <th class="p-4 font-bold brand-dark-blue text-sm uppercase">Example Prompt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold brand-mid-blue align-top">Summarize a Meeting</td>
+                                <td class="p-4 font-mono text-sm bg-gray-100 rounded m-2 inline-block">Based on this meeting transcript, generate a 3-bullet summary and list all action items with assigned owners.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold brand-mid-blue align-top">Draft a Follow-up Email</td>
+                                <td class="p-4 font-mono text-sm bg-gray-100 rounded m-2 inline-block">Draft a polite but firm follow-up email to a client about outstanding paperwork needed to complete their insurance application. Mention the deadline is this Friday.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold brand-mid-blue align-top">Brainstorm Marketing Ideas</td>
+                                <td class="p-4 font-mono text-sm bg-gray-100 rounded m-2 inline-block">Generate 10 creative marketing slogans for a new estate planning service aimed at young families. The tone should be approachable and reassuring.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 bg-brand-pale-blue/20">
+                                <td class="p-4 font-semibold brand-dark-blue align-top">Create Your Own Prompts</td>
+                                <td class="p-4 font-mono text-sm bg-gray-100 rounded m-2 inline-block">Act as a financial advisor. Create a reusable prompt template for a 'fund change notification' email. Include placeholders like [Client Name], [Old Fund], and [New Fund].</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+            };
+            
+            const dailyChartOptions = (day) => ({
+                type: 'bar',
+                options: {
+                     ...tooltipCallback,
+                     indexAxis: 'y',
+                     scales: {
+                         x: { stacked: true, title: { display: true, text: 'Hours' } },
+                         y: { stacked: true }
+                     },
+                     plugins: {
+                         ...tooltipCallback.plugins,
+                         legend: { display: false }
+                     }
+                }
+            });
+
+            new Chart(document.getElementById('mondayChart'), {
+                ...dailyChartOptions('Monday'),
+                data: {
+                    labels: ['Client Work', 'Meetings', 'Admin/Emails', 'Lunch', 'Drive'],
+                    datasets: [{
+                        label: 'Hours',
+                        data: [2, 2.5, 1.5, 1, 0.5],
+                        backgroundColor: ['#003F5C', '#366E8A', '#75A2B8', '#B2DDF0', '#d6d3d1'],
+                    }]
+                }
+            });
+
+            new Chart(document.getElementById('tuesdayChart'), {
+                ...dailyChartOptions('Tuesday'),
+                data: {
+                    labels: ['Meetings', 'Strategy/Dev', 'Client Work', 'Admin', 'Drive'],
+                    datasets: [{
+                        label: 'Hours',
+                        data: [4, 2, 1.25, 0.25, 0.25],
+                        backgroundColor: ['#003F5C', '#366E8A', '#75A2B8', '#B2DDF0', '#d6d3d1'],
+                    }]
+                }
+            });
+
+            new Chart(document.getElementById('wednesdayChart'), {
+                ...dailyChartOptions('Wednesday'),
+                data: {
+                    labels: ['Meetings', 'Client Work', 'Admin/Emails', 'Strategy/Dev', 'Lunch', 'Drive'],
+                    datasets: [{
+                        label: 'Hours',
+                        data: [4, 0.5, 1, 0.83, 1, 0.5],
+                         backgroundColor: ['#003F5C', '#366E8A', '#75A2B8', '#B2DDF0', '#a8a29e', '#d6d3d1'],
+                    }]
+                }
+            });
+            
+            const treeData = [
+                { value: 10.5, label: 'Meetings & Calls'},
+                { value: 3.75, label: 'Client Work'},
+                { value: 2.83, label: 'Strategy & Dev'},
+                { value: 2.75, label: 'Admin & Emails'},
+                { value: 2, label: 'Lunch'},
+                { value: 1.25, label: 'Drive'},
+            ];
+            const totalValue = treeData.reduce((sum, node) => sum + node.value, 0);
+
+            new Chart(document.getElementById('treemapChart').getContext('2d'), {
+                type: 'treemap',
+                data: {
+                  datasets: [
+                    {
+                      tree: treeData,
+                      key: 'value',
+                      groups: ['label'],
+                      backgroundColor: (ctx) => {
+                        if (ctx.type !== 'data') return 'transparent';
+                        const activity = ctx.raw.g;
+                        const colors = {'Meetings & Calls': '#003F5C', 'Client Work': '#2a5a74', 'Strategy & Dev': '#366E8A', 'Admin & Emails': '#56889f', 'Lunch': '#75A2B8', 'Drive': '#94b7c8'};
+                        return colors[activity] || '#B2DDF0';
+                      },
+                      labels: {
+                        display: true,
+                        color: 'white',
+                        font: { size: 16, weight: 'bold' },
+                        formatter: (ctx) => {
+                            if (ctx.type !== 'data' || !totalValue) return;
+                            const percentage = (ctx.raw.v / totalValue * 100).toFixed(1) + '%';
+                            return [ctx.raw.g, percentage];
+                        }
+                      }
+                    }
+                  ],
+                },
+                options: {
+                    plugins: {
+                        title: { display: false },
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: (items) => items[0].raw.g,
+                                label: (item) => {
+                                    if (!totalValue) return '';
+                                    const percentage = (item.raw.v / totalValue * 100).toFixed(1);
+                                    return [`Hours: ${item.raw.v.toFixed(2)}`, `Percentage: ${percentage}%`];
+                                }
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false,
+                }
+            });
+        });
+    </script>
+</body>
+</html>
