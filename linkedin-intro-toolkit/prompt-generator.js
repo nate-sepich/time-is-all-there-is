@@ -353,76 +353,129 @@ function displayPrompts(output, individualSteps = {}) {
     
     // If we have individual steps (All Steps selected), display them separately
     if (Object.keys(individualSteps).length > 0) {
+        // Add a header explaining the workflow
+        const workflowHeader = document.createElement('div');
+        workflowHeader.className = 'workflow-header';
+        workflowHeader.innerHTML = `
+            <h4>📋 Your Generated Prompts - Ready for AI Chat</h4>
+            <p>Copy each step below and send them <strong>sequentially</strong> in your AI conversation. Each step builds on the previous one.</p>
+        `;
+        promptOutput.appendChild(workflowHeader);
+        
         // First add the session header if it exists
         if (individualSteps.header) {
             const headerContainer = document.createElement('div');
-            headerContainer.className = 'prompt-output session-header';
+            headerContainer.className = 'step-card session-header-card';
+            
+            const stepHeader = document.createElement('div');
+            stepHeader.className = 'step-card-header';
+            stepHeader.innerHTML = `
+                <h5>📄 Session Header</h5>
+                <span class="step-description">Copy this first to start your session log</span>
+            `;
             
             const headerContent = document.createElement('pre');
-            headerContent.className = 'prompt-content';
+            headerContent.className = 'step-content';
             headerContent.textContent = individualSteps.header;
             
             const headerCopyBtn = document.createElement('button');
-            headerCopyBtn.className = 'copy-btn';
-            headerCopyBtn.textContent = 'Copy Session Header';
+            headerCopyBtn.className = 'step-copy-btn';
+            headerCopyBtn.innerHTML = `
+                <span class="copy-icon">📋</span>
+                <span class="copy-text">Copy Session Header</span>
+            `;
             headerCopyBtn.onclick = () => copyToClipboard(individualSteps.header, headerCopyBtn);
             
+            headerContainer.appendChild(stepHeader);
             headerContainer.appendChild(headerContent);
             headerContainer.appendChild(headerCopyBtn);
             promptOutput.appendChild(headerContainer);
         }
         
-        // Add each step as a separate block
-        Object.keys(individualSteps).forEach(step => {
-            if (step === 'header') return; // Skip header, already handled
-            
-            const stepContainer = document.createElement('div');
-            stepContainer.className = 'prompt-output individual-step';
-            
-            const stepContent = document.createElement('pre');
-            stepContent.className = 'prompt-content';
-            stepContent.textContent = individualSteps[step];
-            
-            const stepCopyBtn = document.createElement('button');
-            stepCopyBtn.className = 'copy-btn';
-            const stepNum = step.replace('step', '');
-            stepCopyBtn.textContent = `Copy Step ${stepNum}`;
-            stepCopyBtn.onclick = () => copyToClipboard(individualSteps[step], stepCopyBtn);
-            
-            stepContainer.appendChild(stepContent);
-            stepContainer.appendChild(stepCopyBtn);
-            promptOutput.appendChild(stepContainer);
+        // Add each step as a separate card
+        const stepOrder = ['step1', 'step2', 'step3', 'step4', 'step5'];
+        stepOrder.forEach(step => {
+            if (individualSteps[step]) {
+                const stepNum = step.replace('step', '');
+                const stepContainer = document.createElement('div');
+                stepContainer.className = 'step-card prompt-step-card';
+                
+                const stepHeader = document.createElement('div');
+                stepHeader.className = 'step-card-header';
+                const stepDescriptions = {
+                    '1': 'Extract mutual connections from LinkedIn',
+                    '2': 'Analyze engagement patterns and find active users',
+                    '3': 'Categorize prospects by role and evidence',
+                    '4': 'Score prospects for introduction likelihood',
+                    '5': 'Generate meeting intelligence and talking points'
+                };
+                stepHeader.innerHTML = `
+                    <h5>🎯 Step ${stepNum}</h5>
+                    <span class="step-description">${stepDescriptions[stepNum]}</span>
+                `;
+                
+                const stepContent = document.createElement('pre');
+                stepContent.className = 'step-content';
+                stepContent.textContent = individualSteps[step];
+                
+                const stepCopyBtn = document.createElement('button');
+                stepCopyBtn.className = 'step-copy-btn';
+                stepCopyBtn.innerHTML = `
+                    <span class="copy-icon">📋</span>
+                    <span class="copy-text">Copy Step ${stepNum}</span>
+                `;
+                stepCopyBtn.onclick = () => copyToClipboard(individualSteps[step], stepCopyBtn);
+                
+                stepContainer.appendChild(stepHeader);
+                stepContainer.appendChild(stepContent);
+                stepContainer.appendChild(stepCopyBtn);
+                promptOutput.appendChild(stepContainer);
+            }
         });
         
         // Add a "Copy All" button for the complete output
         const allContainer = document.createElement('div');
-        allContainer.className = 'prompt-output copy-all-container';
+        allContainer.className = 'step-card copy-all-card';
+        
+        const allHeader = document.createElement('div');
+        allHeader.className = 'step-card-header';
+        allHeader.innerHTML = `
+            <h5>📦 Complete Package</h5>
+            <span class="step-description">All steps + session header in one copy</span>
+        `;
         
         const allCopyBtn = document.createElement('button');
-        allCopyBtn.className = 'copy-btn copy-all-btn';
-        allCopyBtn.textContent = 'Copy All Steps (Complete Output)';
+        allCopyBtn.className = 'step-copy-btn copy-all-btn';
+        allCopyBtn.innerHTML = `
+            <span class="copy-icon">📋</span>
+            <span class="copy-text">Copy Everything</span>
+        `;
         allCopyBtn.onclick = () => copyToClipboard(output, allCopyBtn);
         
+        allContainer.appendChild(allHeader);
         allContainer.appendChild(allCopyBtn);
         promptOutput.appendChild(allContainer);
         
     } else {
         // Single step display (original behavior)
-        const promptContainer = document.createElement('div');
-        promptContainer.className = 'prompt-output';
+        const stepContainer = document.createElement('div');
+        stepContainer.className = 'step-card prompt-step-card';
         
-        const promptContent = document.createElement('pre');
-        promptContent.className = 'prompt-content';
-        promptContent.textContent = output;
+        const stepContent = document.createElement('pre');
+        stepContent.className = 'step-content';
+        stepContent.textContent = output;
         
         const copyBtn = document.createElement('button');
-        copyBtn.className = 'copy-btn';
-        copyBtn.textContent = 'Copy';
+        copyBtn.className = 'step-copy-btn';
+        copyBtn.innerHTML = `
+            <span class="copy-icon">📋</span>
+            <span class="copy-text">Copy</span>
+        `;
         copyBtn.onclick = () => copyToClipboard(output, copyBtn);
         
-        promptContainer.appendChild(promptContent);
-        promptContainer.appendChild(copyBtn);
-        promptOutput.appendChild(promptContainer);
+        stepContainer.appendChild(stepContent);
+        stepContainer.appendChild(copyBtn);
+        promptOutput.appendChild(stepContainer);
     }
     
     // Show output section
@@ -436,13 +489,23 @@ function copyToClipboard(text, button) {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => {
             // Visual feedback
-            const originalText = button.textContent;
-            button.textContent = 'Copied!';
-            button.style.background = 'var(--accent-color)';
+            const copyTextElement = button.querySelector('.copy-text');
+            const copyIconElement = button.querySelector('.copy-icon');
+            const originalText = copyTextElement ? copyTextElement.textContent : button.textContent;
+            const originalIcon = copyIconElement ? copyIconElement.textContent : '';
+            const originalBackground = button.style.background || '';
+            
+            // Update button appearance
+            if (copyTextElement) copyTextElement.textContent = 'Copied!';
+            else button.textContent = 'Copied!';
+            if (copyIconElement) copyIconElement.textContent = '✅';
+            button.style.background = '#28a745';
             
             setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'var(--primary-color)';
+                if (copyTextElement) copyTextElement.textContent = originalText;
+                else button.textContent = originalText;
+                if (copyIconElement) copyIconElement.textContent = originalIcon;
+                button.style.background = originalBackground;
             }, 2000);
         }).catch(err => {
             console.error('Failed to copy:', err);
@@ -467,13 +530,23 @@ function fallbackCopyToClipboard(text, button) {
     try {
         document.execCommand('copy');
         // Visual feedback
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.style.background = 'var(--accent-color)';
+        const copyTextElement = button.querySelector('.copy-text');
+        const copyIconElement = button.querySelector('.copy-icon');
+        const originalText = copyTextElement ? copyTextElement.textContent : button.textContent;
+        const originalIcon = copyIconElement ? copyIconElement.textContent : '';
+        const originalBackground = button.style.background || '';
+        
+        // Update button appearance
+        if (copyTextElement) copyTextElement.textContent = 'Copied!';
+        else button.textContent = 'Copied!';
+        if (copyIconElement) copyIconElement.textContent = '✅';
+        button.style.background = '#28a745';
         
         setTimeout(() => {
-            button.textContent = originalText;
-            button.style.background = 'var(--primary-color)';
+            if (copyTextElement) copyTextElement.textContent = originalText;
+            else button.textContent = originalText;
+            if (copyIconElement) copyIconElement.textContent = originalIcon;
+            button.style.background = originalBackground;
         }, 2000);
     } catch (err) {
         console.error('Fallback copy failed:', err);
