@@ -300,14 +300,20 @@ function generatePrompts() {
 
             // Generate prompts based on selection
             let output = '';
+            let individualSteps = {};
             
             if (selectedStep === 'all') {
                 // Generate all steps with session header
                 output = currentGenerator.generateSessionHeader();
                 const allPrompts = currentGenerator.getAllPrompts();
                 
+                // Store individual steps for separate display
+                individualSteps.header = currentGenerator.generateSessionHeader();
                 Object.keys(allPrompts).forEach((step, index) => {
                     const stepNum = step.replace('step', '');
+                    const stepContent = `## Step ${stepNum} Prompt\n\n${allPrompts[step]}`;
+                    individualSteps[step] = stepContent;
+                    
                     output += `## Step ${stepNum} Prompt\n\n`;
                     output += allPrompts[step];
                     if (index < Object.keys(allPrompts).length - 1) {
@@ -326,7 +332,7 @@ function generatePrompts() {
             }
 
             // Display output
-            displayPrompts(output);
+            displayPrompts(output, individualSteps);
             
         } catch (error) {
             console.error('Error generating prompts:', error);
@@ -338,25 +344,86 @@ function generatePrompts() {
     }, 1000); // Simulate processing time
 }
 
-function displayPrompts(output) {
+function displayPrompts(output, individualSteps = {}) {
     const outputSection = document.getElementById('outputSection');
     const promptOutput = document.getElementById('promptOutput');
     
-    // Create prompt container with copy functionality
+    // Clear previous output
     promptOutput.innerHTML = '';
     
-    const promptContainer = document.createElement('div');
-    promptContainer.className = 'prompt-output';
-    promptContainer.textContent = output;
-    
-    // Add copy button
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn';
-    copyBtn.textContent = 'Copy All';
-    copyBtn.onclick = () => copyToClipboard(output, copyBtn);
-    
-    promptContainer.appendChild(copyBtn);
-    promptOutput.appendChild(promptContainer);
+    // If we have individual steps (All Steps selected), display them separately
+    if (Object.keys(individualSteps).length > 0) {
+        // First add the session header if it exists
+        if (individualSteps.header) {
+            const headerContainer = document.createElement('div');
+            headerContainer.className = 'prompt-output session-header';
+            
+            const headerContent = document.createElement('pre');
+            headerContent.className = 'prompt-content';
+            headerContent.textContent = individualSteps.header;
+            
+            const headerCopyBtn = document.createElement('button');
+            headerCopyBtn.className = 'copy-btn';
+            headerCopyBtn.textContent = 'Copy Session Header';
+            headerCopyBtn.onclick = () => copyToClipboard(individualSteps.header, headerCopyBtn);
+            
+            headerContainer.appendChild(headerContent);
+            headerContainer.appendChild(headerCopyBtn);
+            promptOutput.appendChild(headerContainer);
+        }
+        
+        // Add each step as a separate block
+        Object.keys(individualSteps).forEach(step => {
+            if (step === 'header') return; // Skip header, already handled
+            
+            const stepContainer = document.createElement('div');
+            stepContainer.className = 'prompt-output individual-step';
+            
+            const stepContent = document.createElement('pre');
+            stepContent.className = 'prompt-content';
+            stepContent.textContent = individualSteps[step];
+            
+            const stepCopyBtn = document.createElement('button');
+            stepCopyBtn.className = 'copy-btn';
+            const stepNum = step.replace('step', '');
+            stepCopyBtn.textContent = `Copy Step ${stepNum}`;
+            stepCopyBtn.onclick = () => copyToClipboard(individualSteps[step], stepCopyBtn);
+            
+            stepContainer.appendChild(stepContent);
+            stepContainer.appendChild(stepCopyBtn);
+            promptOutput.appendChild(stepContainer);
+        });
+        
+        // Add a "Copy All" button for the complete output
+        const allContainer = document.createElement('div');
+        allContainer.className = 'prompt-output copy-all-container';
+        
+        const allCopyBtn = document.createElement('button');
+        allCopyBtn.className = 'copy-btn copy-all-btn';
+        allCopyBtn.textContent = 'Copy All Steps (Complete Output)';
+        allCopyBtn.onclick = () => copyToClipboard(output, allCopyBtn);
+        
+        allContainer.appendChild(allCopyBtn);
+        promptOutput.appendChild(allContainer);
+        
+    } else {
+        // Single step display (original behavior)
+        const promptContainer = document.createElement('div');
+        promptContainer.className = 'prompt-output';
+        
+        const promptContent = document.createElement('pre');
+        promptContent.className = 'prompt-content';
+        promptContent.textContent = output;
+        
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.onclick = () => copyToClipboard(output, copyBtn);
+        
+        promptContainer.appendChild(promptContent);
+        promptContainer.appendChild(copyBtn);
+        promptOutput.appendChild(promptContainer);
+    }
     
     // Show output section
     outputSection.classList.remove('hidden');

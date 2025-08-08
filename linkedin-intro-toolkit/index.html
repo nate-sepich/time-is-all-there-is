@@ -227,13 +227,62 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
+            position: relative;
+        }
+
+        .prompt-content {
             font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
             font-size: 0.9rem;
             line-height: 1.5;
             white-space: pre-wrap;
             max-height: 600px;
             overflow-y: auto;
-            position: relative;
+            margin: 0;
+            padding-right: 100px; /* Space for copy button */
+        }
+
+        /* Individual step styling */
+        .individual-step {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .individual-step .prompt-content {
+            max-height: 400px; /* Smaller max height for individual steps */
+        }
+
+        /* Session header styling */
+        .session-header {
+            background: #e7f3ff;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .session-header .prompt-content {
+            max-height: 300px;
+        }
+
+        /* Copy all container */
+        .copy-all-container {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .copy-all-btn {
+            position: static !important;
+            background: white;
+            color: var(--primary-color);
+            font-weight: bold;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            border: 2px solid white;
+        }
+
+        .copy-all-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .copy-btn {
@@ -248,7 +297,7 @@
             cursor: pointer;
             font-size: 0.8rem;
             opacity: 0.8;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .copy-btn:hover {
