@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Warm Intro Toolkit - AI Agent Prompt Generator</title>
+    <meta name="description" content="Generate AI-powered prompts for systematic LinkedIn warm introduction prospecting with permission-first methodology">
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #f8f9fa;
+            --accent-color: #28a745;
+            --text-color: #333;
+            --border-color: #dee2e6;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        .step-selector {
+            margin-bottom: 20px;
+        }
+
+        .step-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .step-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .step-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .step-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .output-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-top: 30px;
+        }
+
+        .output-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .prompt-output {
+            background: #f8f9fa;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            max-height: 600px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            opacity: 1;
+        }
+
+        .workflow-guide {
+            background: #e7f3ff;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .workflow-guide h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .workflow-guide ol {
+            margin-left: 20px;
+        }
+
+        .workflow-guide li {
+            margin-bottom: 5px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #cce7ff;
+            border-color: var(--primary-color);
+            color: #004085;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: var(--warning-color);
+            color: #856404;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            .step-buttons {
+                justify-content: center;
+            }
+        }
+
+        .loading {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .step-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 LinkedIn Warm Intro Toolkit</h1>
+            <p>AI-powered prompt generator for systematic LinkedIn warm introduction prospecting</p>
+            <span class="badge">Permission-First Methodology</span>
+        </div>
+
+        <div class="form-section">
+            <h2>Generate Your Prompts</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="target">Target Person *</label>
+                    <input type="text" id="target" placeholder="e.g., Alex Thompson" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Target's Company *</label>
+                    <input type="text" id="company" placeholder="e.g., TechCorp" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="advisor">Advisor Name</label>
+                    <input type="text" id="advisor" placeholder="e.g., Cameron" value="Advisor">
+                </div>
+                
+                <div class="form-group">
+                    <label for="origin">Origin Contact</label>
+                    <input type="text" id="origin" placeholder="Leave empty to use same as target">
+                </div>
+                
+                <div class="form-group">
+                    <label for="caseName">Case Name</label>
+                    <input type="text" id="caseName" placeholder="Auto-generated from target name">
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="strictRecency">
+                    <label for="strictRecency">Strict Recency Mode (disqualify engagements >12 months)</label>
+                </div>
+            </div>
+
+            <div class="step-selector">
+                <h3>Select Steps to Generate</h3>
+                <div class="step-buttons">
+                    <button class="step-btn" data-step="all">All Steps</button>
+                    <button class="step-btn" data-step="1">Step 1</button>
+                    <button class="step-btn" data-step="2">Step 2</button>
+                    <button class="step-btn" data-step="3">Step 3</button>
+                    <button class="step-btn" data-step="4">Step 4</button>
+                    <button class="step-btn" data-step="5">Step 5</button>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="generatePrompts()">
+                    🚀 Generate Prompts
+                </button>
+                <button class="btn btn-secondary" onclick="clearForm()">
+                    🗑️ Clear Form
+                </button>
+            </div>
+
+            <div class="loading">
+                <div class="spinner"></div>
+                <span>Generating your personalized prompts...</span>
+            </div>
+        </div>
+
+        <div class="workflow-guide">
+            <h4>🎯 Conversational Workflow Instructions</h4>
+            <ol>
+                <li><strong>Generate all 5 prompts</strong> using the form above</li>
+                <li><strong>Open ChatGPT or Claude</strong> and start a new conversation</li>
+                <li><strong>Send Step 1 prompt</strong> → Agent returns JSON of mutual connections</li>
+                <li><strong>Send Step 2 prompt</strong> → Agent uses "your previous message above" to add engagement data</li>
+                <li><strong>Send Step 3 prompt</strong> → Agent uses "your Step 2 output above" to categorize prospects</li>
+                <li><strong>Send Step 4 prompt</strong> → Agent uses "your Step 3 output above" to score introduction likelihood</li>
+                <li><strong>Send Step 5 prompt</strong> → Agent uses "your Step 4 output above" to generate meeting intelligence</li>
+            </ol>
+            <p><strong>✨ Zero manual data transfer required</strong> - each step references previous outputs automatically!</p>
+        </div>
+
+        <div class="output-section hidden" id="outputSection">
+            <h3>Generated Prompts</h3>
+            <div class="alert alert-info">
+                <strong>Ready to use!</strong> Copy each prompt and send them sequentially in your AI chat session.
+            </div>
+            <div id="promptOutput"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>✨ Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔄 Zero Manual Copying</h4>
+                    <p>Each step references previous outputs in the same conversation - no manual data transfer needed!</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 Permission-First Approach</h4>
+                    <p>Focuses on relationship comfort rather than aggressive sales tactics.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Dual-Source Discovery</h4>
+                    <p>Finds both mutual connections AND non-mutual engagers from post activity.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🛡️ Privacy Protection</h4>
+                    <p>Uses only public LinkedIn data with built-in privacy safeguards.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Proven Results</h4>
+                    <p>Validated across multiple industries with consistent ~20-25% engagement discovery rates.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Role Separation</h4>
+                    <p>Separate target analysis from introduction responsibilities for complex scenarios.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>🚨 Important:</strong> This generates AI prompts for ChatGPT/Claude. You'll need to manually input these into an AI chat interface. This is not an automated LinkedIn scraping tool - it's a prompt engineering toolkit for permission-first prospecting.
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>LinkedIn Warm Intro Toolkit</strong> - 
+                <a href="https://github.com/nate-sepich/time-is-all-there-is" target="_blank">View on GitHub</a> | 
+                <a href="../">Back to Main Site</a>
+            </p>
+            <p style="margin-top: 10px; color: #666;">
+                Built with ❤️ for ethical, relationship-first networking
+            </p>
+        </div>
+    </div>
+
+    <script src="prompt-generator.js"></script>
+</body>
+</html>
